@@ -1,9 +1,28 @@
-pipeline {    agent any
+pipeline {
+    agent any
+	tools {
+		maven 'maven3'
+	}
 
     stages {
         stage('git SCM') {
             steps {
-                echo "this is git file"
+                git branch: 'main', url: 'https://github.com/Nandakumarnk12/jenkinsfile.git'
+            }
+        }
+        stage('Build') {
+            steps {
+               bat 'mvn install'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'This is test stage'
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'This is deploy stage'
             }
         }
     }
